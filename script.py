@@ -5,14 +5,14 @@ import os
 
 
 
-def read(file):
+def read(file, sql_file):
 # I did not take in the database or the json in command line oops!
 # read in json file
     with open(file, "r", encoding="utf-8") as file:
         wot_data = json.load(file)
 
     # creating the sqlite database and initiating connection
-    connection = sqlite3.connect("wheel_of_time.sqlite")
+    connection = sqlite3.connect(sql_file)
     cursor = connection.cursor()
 
     # I wasn't sure if I should make a different primary key or just not have one
@@ -50,16 +50,17 @@ def read(file):
 
 
 def main():
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 3:
         sys.exit(1)
     json_file = sys.argv[1]
+    sqlite_file = sys.argv[2]
 
     if not os.path.isfile(json_file):
         print(f"Error: File '{json_file}' does not exist.")
         sys.exit(1)
     
     if json_file == 'wheel_of_time.json':
-        read(json_file)
+        read(json_file,sqlite_file)
 
 if __name__ == "__main__":
     main()
