@@ -39,5 +39,6 @@ for book in wot_data['books']:
         book.get("mcburneyReview")
     ))
 
+# close transaction
 connection.commit()
 connection.close()
